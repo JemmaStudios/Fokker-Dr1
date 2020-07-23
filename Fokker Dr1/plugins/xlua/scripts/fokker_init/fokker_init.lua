@@ -19,9 +19,6 @@ running = find_dataref("sim/operation/prefs/startup_running")         -- 0: cold
 fuel_valve = find_dataref("sim/cockpit2/fuel/fuel_tank_selector")       -- 0: none, 1: left, 2: center, 3: right, 4: all
 fuel_supply = find_dataref("sim/cockpit2/fuel/fuel_tank_pump_on[0]")    -- 0: off, 1: on
 magneto_switch = find_dataref("sim/cockpit2/electrical/battery_on[0]")  -- 0: off, 1: on
-
-
-
 -- Create functions used by create_commands
 
 function schnirpsknopf_handler(phase, duration)
