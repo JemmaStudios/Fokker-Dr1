@@ -130,7 +130,7 @@ P _gear/0/_axiR 0.0
 P _gear/0/_cyc_time 5.0
 P _gear/0/_damp 341.646087646
 P _gear/0/_eagle_claw_deg 0.0
-P _gear/0/_gear_brakes 0
+P _gear/0/_gear_brakes 1
 P _gear/0/_gear_can_retract 0
 P _gear/0/_gear_castors 0
 P _gear/0/_gear_def_empty 0.0
@@ -148,7 +148,7 @@ P _gear/0/_lonE 0.0
 P _gear/0/_lonN 0.0
 P _gear/0/_lonR 0.0
 P _gear/0/_scon 3416.460937500
-P _gear/0/_stat_def 0.196181074
+P _gear/0/_stat_def 0.196181029
 P _gear/0/_steerdeg_hispeed 0.0
 P _gear/0/_steerdeg_lospeed 0.0
 P _gear/0/_strut_comp 0.0
@@ -164,7 +164,7 @@ P _gear/1/_axiR 0.0
 P _gear/1/_cyc_time 5.0
 P _gear/1/_damp 341.646087646
 P _gear/1/_eagle_claw_deg 0.0
-P _gear/1/_gear_brakes 0
+P _gear/1/_gear_brakes 1
 P _gear/1/_gear_can_retract 0
 P _gear/1/_gear_castors 0
 P _gear/1/_gear_def_empty 0.0
@@ -182,7 +182,7 @@ P _gear/1/_lonE 0.0
 P _gear/1/_lonN 0.0
 P _gear/1/_lonR 0.0
 P _gear/1/_scon 3416.460937500
-P _gear/1/_stat_def 0.196181074
+P _gear/1/_stat_def 0.196181029
 P _gear/1/_steerdeg_hispeed 0.0
 P _gear/1/_steerdeg_lospeed 0.0
 P _gear/1/_strut_comp 0.0
@@ -29843,7 +29843,7 @@ P acf/_feather_prop_with_oilp 0
 P acf/_feathered_pitch 0.0
 P acf/_ff_rat_idle_JET 0.100000001
 P acf/_ff_rat_idle_PRP 0.100000001
-P acf/_file_writer_version 115023
+P acf/_file_writer_version 115028
 P acf/_flap1_cd 0.0
 P acf/_flap1_cl 0.0
 P acf/_flap1_cm 0.0
@@ -30116,7 +30116,7 @@ P acf/_is_general_aviation 0
 P acf/_is_glider 0
 P acf/_is_glossy 0
 P acf/_is_helicopter 0
-P acf/_is_military 0
+P acf/_is_military 1
 P acf/_is_sci_fi 0
 P acf/_is_seaplane 0
 P acf/_is_ultralight 0
@@ -30761,7 +30761,7 @@ P acf/_vect_power_for 1.0
 P acf/_vect_rate 15.0
 P acf/_vectarmY 0.0
 P acf/_vectarmZ 0.0
-P acf/_version a00
+P acf/_version a05
 P acf/_vvi_but_adjusts_pitch 0
 P acf/_warn_airliner 0
 P acf/_warn_alt_app_100 0

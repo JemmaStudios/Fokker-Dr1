@@ -252,7 +252,8 @@ assist_status = create_dataref("Dr1/spandau/assist_lever_status","number")      
 cock_rat = create_dataref("Dr1/spandau/cock_lever_ratio","number",cock_handler)         -- cock lever position ratio 
 slide_rat = create_dataref("Dr1/spandau/bolt_slide_ratio","number")                     -- bolt slide position ratio
 belt_rat = create_dataref("Dr1/spandau/belt_position_ratio","number")                   -- belt position ratio
-trigger_on = create_dataref("Dr1/spandau/trigger_state","number")                       -- is the fire_guns command being sent?       
+trigger_on = create_dataref("Dr1/spandau/trigger_state","number")                       -- is the fire_guns command being sent?
+gun_fired = create_dataref("Dr1/spandau/fire_sound", "number")                         -- send fire_sound if 1       
 
 -- Create custom commands
 safety_up = create_command("Dr1/guns/safety_lever_up", "Moves the safety lever up", safety_lever_up_handler)
@@ -273,6 +274,7 @@ end
 
 function after_physics()
     -- if the safety lever isn't down we'll keep dropping it.
+--    if fire_sound == 1 then fire_sound = 0 end  -- reset the fire sound dataref.
     if safety_status == safety_dropping then
         safety_rat = safety_rat - safety_step   -- decrement the safety lever ratio
         safety_handler()                        -- verify it's not out of limits
