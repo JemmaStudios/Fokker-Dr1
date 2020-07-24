@@ -48,6 +48,10 @@ function chock_handler(phase, duration)
     end
 end
 
+function xp_park_handler(phase, duration)
+    chock_handler (phase, duration)
+end
+
 dr1_mix = create_dataref("Dr1/cockpit/mixture_ratio", "number", fokker_mix_handler) 
 dr1_ail_left = create_dataref("Dr1/cockpit/vr_ail_left", "number", yoke_roll_left_handler)
 dr1_ail_right = create_dataref("Dr1/cockpit/vr_ail_right", "number", yoke_roll_right_handler)
@@ -55,6 +59,8 @@ dr1_rudder = create_dataref("Dr1/cockpit/vr_rudder", "number", yoke_heading_hand
 chock_toggle = create_dataref("Dr1/cockpit/wheelchocks", "number")
 
 chock_cmd = create_command("Dr1/cockpit/chock_toggle", "Toggles wheel chock boards.", chock_handler)
+xp_park_brake = replace_command("sim/flight_controls/brakes_toggle_max", xp_park_handler)
+xp_park = replace_command("sim/flight_controls/brakes_toggle_regular", xp_park_handler)
 
 function flight_start()
     chock_toggle = 1
