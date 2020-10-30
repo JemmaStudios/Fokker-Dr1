@@ -15,6 +15,7 @@ yoke_roll = find_dataref("sim/cockpit2/controls/yoke_roll_ratio")
 yoke_hdg = find_dataref("sim/cockpit2/controls/yoke_heading_ratio")
 ground_speed = find_dataref("sim/flightmodel2/position/groundspeed")
 parking_brake = find_dataref("sim/cockpit2/controls/parking_brake_ratio")
+xp_vulkan = find_dataref ("sim/private/stats/gfx/vulkan/descriptors/max_sets")
 
 function fokker_mix_handler ()
     --[[Since the VR display for our 'backward' mixture handle show the red/green axis
@@ -57,6 +58,7 @@ dr1_ail_left = create_dataref("Dr1/cockpit/vr_ail_left", "number", yoke_roll_lef
 dr1_ail_right = create_dataref("Dr1/cockpit/vr_ail_right", "number", yoke_roll_right_handler)
 dr1_rudder = create_dataref("Dr1/cockpit/vr_rudder", "number", yoke_heading_handler)
 chock_toggle = create_dataref("Dr1/cockpit/wheelchocks", "number")
+dr1_starter = create_dataref("Dr1/cockpit/show_start_button", "number")
 
 chock_cmd = create_command("Dr1/cockpit/chock_toggle", "Toggles wheel chock boards.", chock_handler)
 xp_park_brake = replace_command("sim/flight_controls/brakes_toggle_max", xp_park_handler)
@@ -65,6 +67,11 @@ xp_park = replace_command("sim/flight_controls/brakes_toggle_regular", xp_park_h
 function flight_start()
     chock_toggle = 1
     parking_brake = 1
+    if xp_vulkan > 1 then
+        dr1_starter = 0
+    else
+        dr1_starter = 1
+    end
 end
 
 function after_physics()

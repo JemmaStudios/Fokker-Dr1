@@ -25,6 +25,11 @@ open_canopy = find_dataref("sim/cockpit2/switches/canopy_open")         -- 0: cl
 open_can_rat = find_dataref("sim/flightmodel2/misc/canopy_open_ratio")  -- 0: closed, 1: open
 left_brakes = find_dataref("sim/cockpit2/controls/left_brake_ratio")
 right_brakes = find_dataref("sim/cockpit2/controls/right_brake_ratio")
+xp_radio = {}
+xp_radio[1] = find_dataref("sim/cockpit2/radios/actuators/com1_power")
+xp_radio[2] = find_dataref("sim/cockpit2/radios/actuators/com2_power")
+xp_radio[3] = find_dataref("sim/cockpit2/radios/actuators/nav1_power")
+xp_radio[4] = find_dataref("sim/cockpit2/radios/actuators/nav2_power")
 -- Create functions used by create_commands
 
 function schnirpsknopf_handler(phase, duration)
@@ -50,6 +55,10 @@ function before_physics()
 end
 
 function flight_start()
+    for i = 1, 4, 1
+    do
+        xp_radio[i] = 0         -- turn off com1, com2, nav1, nav2
+    end
     open_canopy = isOpen        -- let's open the canopy that isn't there.
     open_can_rat = isOpen       -- gotta do both to avoid a delayed opening.
     if running == 0 then        -- if they started cold and dark,
