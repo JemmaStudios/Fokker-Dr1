@@ -26,8 +26,6 @@ defineProperty("barrel_rounds_max", 60) -- number of rounds to fire before the b
 defineProperty("barrel_cool_time", 10)  -- number of seconds to fully cool the barrel.
 defineProperty("barrel_overheat_reset", 0.3)  -- the machine gun will reset when the heat ratio gets back down to this level.
 
-if getLogLevel() == LOG_DEBUG then print ("DEBUG MODE!") end
-
 assist_time = {0.20, 0.35}          -- how long does it take to swing the assist levers?
 assist_on = 0               -- the cocking assist lever is engaged
 assist_off = 1              -- the cocking assist lever is off
@@ -81,6 +79,22 @@ sasl.al.setSampleGain ( gunfire[1] , 200)
 sasl.al.setSampleGain ( gunfire[2] , 200)
 sasl.al.setSampleRelative ( gunfire[1] , 0)
 sasl.al.setSampleRelative ( gunfire[2] , 0)
+
+cocking_sound = {}
+cocking_sound[1] = sasl.al.loadSample ("sounds/cock_bolt.wav")
+cocking_sound[2] = sasl.al.loadSample ("sounds/cock_bolt.wav")
+sasl.al.setSamplePosition ( cocking_sound[1] , -0.12689, 0.547209, 1.12)
+sasl.al.setSamplePosition ( cocking_sound[2] , 0.12689, 0.547209, 1.12)
+sasl.al.setSampleGain ( cocking_sound[1] , 200)
+sasl.al.setSampleGain ( cocking_sound[2] , 200)
+
+cock_back = {}
+cock_back[1] = sasl.al.loadSample ("sounds/cock_bolt_back.wav")
+cock_back[2] = sasl.al.loadSample ("sounds/cock_bolt_back.wav")
+sasl.al.setSamplePosition ( cock_back[1] , -0.12689, 0.547209, 1.12)
+sasl.al.setSamplePosition ( cock_back[2] , 0.12689, 0.547209, 1.12)
+sasl.al.setSampleGain ( cock_back[1] , 200)
+sasl.al.setSampleGain ( cock_back[2] , 200)
 
 function limit_ratio(tRat)
     -- enforces lower and upper limits for a float ratio between 0.00 and 1.00
@@ -150,8 +164,14 @@ end
 function cock_lever_handler(i)
     if bolt_phase[i] == bolt_home then
         bolt_phase[i] = bolt_moving_fwd
+        if not sasl.al.isSamplePlaying ( cocking_sound[i]) then
+            sasl.al.playSample ( cocking_sound[i] )
+        end
     end
     if get(assist_status, i) == assist_off and get(guns_firing, i) == IS_JAMMED then
+        if not sasl.al.isSamplePlaying ( cock_back[i]) then
+            sasl.al.playSample ( cock_back[i] )
+        end
         bolt_phase[i] = bolt_moving_back
         cock_phase[i] = cock_fed
         set(guns_armed, 0, i)

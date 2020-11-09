@@ -45,8 +45,11 @@
 local timers = {} -- timers table.  each element is {p_function_pointer, f_current_time_step, f_interval, f_delay_to_start, i_only_do_once}
 
 local xp_frame_rate_period = globalPropertyf("sim/operation/misc/frame_rate_period") -- how many seconds per frame?
-
+local xp_total_running_time = globalPropertyf ("sim/time/total_running_time_sec") -- how many seconds have we been loaded up.
+local xp_total_flight_time = globalPropertyf ("sim/time/total_flight_time_sec") -- how many seconds have we been loaded up.
 timer_lib.SIM_PERIOD = get(xp_frame_rate_period)
+timer_lib.RUN_TIME_SEC = get(xp_total_running_time)
+timer_lib.FLIGHT_TIME_SEC = get(xp_total_flight_time)
 
 function timer_lib.run_at_interval(s_function, f_interval)
     -- Sets up a timer to run function s_function at f_interval seconds (can be fractions of a second)
@@ -103,6 +106,9 @@ function run_timers()
 end
 
 function update()
+    timer_lib.SIM_PERIOD = get(xp_frame_rate_period)
+    timer_lib.RUN_TIME_SEC = get(xp_total_running_time)
+    timer_lib.FLIGHT_TIME_SEC = get(xp_total_flight_time)
     run_timers()
     updateAll(components)
 end

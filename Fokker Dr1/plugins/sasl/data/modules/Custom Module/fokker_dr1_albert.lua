@@ -14,7 +14,7 @@ defineProperty("stache_wiggle", 0.2) -- can be overridden in main.lua as require
 defineProperty("stache_wiggle_floor", 0.02) -- can be overridden in main.lua as required.
 local airspeed_step = (get(airspeed_max) - get(airspeed_min)) / 12 -- there are twelve sections of moustache.
 
-xp_prop_speed = globalPropertyiae("sim/cockpit2/engine/indicators/prop_speed_rpm", 1)     -- 0:not running; 1:it's running
+xp_prop_speed = globalPropertyfae("sim/cockpit2/engine/indicators/prop_speed_rpm", 1)     -- 0:not running; 1:it's running
 
 moustache_rat = createGlobalPropertyfa ("Dr1/alfred/moustache_ratio", {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0})
 

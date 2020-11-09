@@ -4,7 +4,8 @@
 [JEMMA_FOKKER_DR1 INFO]: [LUA]: loading	module
 [JEMMA_FOKKER_DR1 INFO]: [LUA]: loading	timer_library
 [JEMMA_FOKKER_DR1 INFO]: [LUA]: loading	fokker_dr1_guns
-[JEMMA_FOKKER_DR1 INFO]: [LUA]: "fokker_dr1_guns"	DEBUG MODE!
 [JEMMA_FOKKER_DR1 INFO]: [LUA]: loading	fokker_dr1_albert
-[JEMMA_FOKKER_DR1 DEBUG]: [LUA]: "sim/cockpit2/engine/indicators/prop_speed_rpm": Casting float array element to int array element
+[JEMMA_FOKKER_DR1 INFO]: [LUA]: loading	fokker_dr1_control
 [JEMMA_FOKKER_DR1 INFO]: Module loaded
+[JEMMA_FOKKER_DR1 INFO]: Disabling...
+[JEMMA_FOKKER_DR1 INFO]: SASL plugin stopped...
