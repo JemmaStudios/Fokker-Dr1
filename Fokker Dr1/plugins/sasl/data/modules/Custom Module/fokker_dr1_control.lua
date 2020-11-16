@@ -47,6 +47,12 @@ for i = 1, 13, 1 do
     sasl.al.setSampleGain ( crank[i] , 25)    
 end
 
+pull_prop = sasl.al.loadSample ("sounds/fokker_dr1 STARTER_RECIP_inn.wav")
+sasl.al.setSampleGain ( pull_prop , 25)
+
+engine_stop = sasl.al.loadSample ("sounds/engine_stop.wav")
+sasl.al.setSampleGain ( engine_stop , 25)
+
 -- look up our datarefs
 xp_mix = globalPropertyfae("sim/cockpit2/engine/actuators/mixture_ratio", 1)
 yoke_roll = globalPropertyf("sim/cockpit2/controls/yoke_roll_ratio")
@@ -64,6 +70,7 @@ open_can_rat = globalPropertyf("sim/flightmodel2/misc/canopy_open_ratio")  -- 0:
 left_brakes = globalPropertyf("sim/cockpit2/controls/left_brake_ratio")
 right_brakes = globalPropertyf("sim/cockpit2/controls/right_brake_ratio")
 xp_engine_running = globalPropertyiae("sim/flightmodel/engine/ENGN_running", 1)
+xp_engine_rpm = globalPropertyfae("sim/cockpit2/engine/indicators/engine_speed_rpm", 1)
 xp_radio = {}
 xp_radio[1] = globalPropertyi("sim/cockpit2/radios/actuators/com1_power")
 xp_radio[2] = globalPropertyi("sim/cockpit2/radios/actuators/com2_power")
@@ -259,16 +266,21 @@ local starter_time = 0.0
 function xp_engine_starter_handler (phase)
     if phase == SASL_COMMAND_BEGIN then
         engine_startup_status(phase)
+        if get(xp_engine_running) == isOff then
+            sasl.al.playSample ( pull_prop , true )
+        end
         starter_time = timer_lib.RUN_TIME_SEC
         return 1
     elseif phase == SASL_COMMAND_CONTINUE then
         if timer_lib.RUN_TIME_SEC - starter_time > get(starter_spin_time) then
+            sasl.al.stopSample ( pull_prop )
             return 0
         else
             return 1
         end
     else
         engine_startup_status(phase)
+        sasl.al.stopSample ( pull_prop )
         return 0
     end
 end
@@ -348,6 +360,20 @@ function update_oil ()
     end
 end
 
+local was_running = false
+function check_rpm()
+    if get(xp_engine_rpm) > 300 then 
+        was_running = true
+        sasl.al.stopSample ( engine_stop )
+    end
+    if get (xp_engine_rpm) < 280 and was_running == true then
+        if not sasl.al.isSamplePlaying ( engine_stop ) then
+            sasl.al.playSample ( engine_stop )
+        end
+    end
+    if get(xp_engine_rpm) < 30 then was_running = false end
+end
+
 dr1_mix = createFunctionalPropertyf ("Dr1/cockpit/mixture_ratio", get_fokker_mix_handler, set_fokker_mix_handler) -- fokker_mix_handler
 dr1_ail_left = createFunctionalPropertyf("Dr1/cockpit/vr_ail_left", get_yoke_roll_left_handler, set_yoke_roll_left_handler) -- yoke_roll_left_handler
 dr1_ail_right = createFunctionalPropertyf("Dr1/cockpit/vr_ail_right", get_yoke_roll_right_handler, set_yoke_roll_right_handler) -- yoke_roll_right_handler
@@ -406,7 +432,8 @@ do
 end
 set(open_canopy, isOpen)        -- let's open the canopy that isn't there.
 set(open_can_rat, isOpen)       -- gotta do both to avoid a delayed opening.
-if get(running) == isOff and get(xp_engine_running) == isOff then        -- if they started cold and dark,
+if get(running) == isOff or get(xp_engine_running) == isOff then        -- if they started cold and dark,
+    debug_lib.on_debug("Cold and Dark")
     set(xp_battery, isOff)
     set(dr1_magneto_charge, 0)
     set(fuel_valve, fuel_OFF)   -- we need to close the fuel valve
@@ -421,6 +448,7 @@ else
 end
 
 function update ()
+    check_rpm()
     update_oil()
     if not (oil_pulse_moving == not_moving) then
         move_oil()
