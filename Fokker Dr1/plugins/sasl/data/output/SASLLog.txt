@@ -2,10 +2,10 @@
 [JEMMA_FOKKER_DR1 INFO]: Path to module: C:\Program Files (x86)/Steam/steamapps/common/X-Plane 11/Aircraft/Jemma Studios/FokkerDr1/plugins/sasl/data/modules/main.lua
 [JEMMA_FOKKER_DR1 INFO]: Loading module...
 [JEMMA_FOKKER_DR1 INFO]: [LUA]: loading	module
-[JEMMA_FOKKER_DR1 INFO]: [LUA]: "module"	DEBUG MODE! ************** Fokker Dr1 DEBUG MODE IS ON *****************
 [JEMMA_FOKKER_DR1 INFO]: [LUA]: loading	timer_library
 [JEMMA_FOKKER_DR1 INFO]: [LUA]: loading	fokker_dr1_guns
 [JEMMA_FOKKER_DR1 INFO]: [LUA]: loading	fokker_dr1_albert
 [JEMMA_FOKKER_DR1 INFO]: [LUA]: loading	fokker_dr1_control
-[JEMMA_FOKKER_DR1 INFO]: [LUA]: "module"	DEBUG MODE! Cold and Dark
 [JEMMA_FOKKER_DR1 INFO]: Module loaded
+[JEMMA_FOKKER_DR1 INFO]: Disabling...
+[JEMMA_FOKKER_DR1 INFO]: SASL plugin stopped...
