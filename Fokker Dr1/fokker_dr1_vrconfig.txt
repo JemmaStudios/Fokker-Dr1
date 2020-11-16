@@ -12,9 +12,9 @@ END_TELEPORT_HOTSPOT
 
 ###VR Yoke####
 
-BEGIN_MANIP drag_xy sim/cockpit2/controls/yoke_roll_ratio sim/cockpit2/controls/yoke_pitch_ratio
-YOKE_MANIP_ROTATE -0.00001	-0.41025999	1.53374004 1 0 0 -12 12    -0.00001	-0.41025999	1.53374004 0 0 -1 -10 10
-END_MANIP
+#BEGIN_MANIP drag_xy sim/cockpit2/controls/yoke_roll_ratio sim/cockpit2/controls/yoke_pitch_ratio
+#YOKE_MANIP_ROTATE -0.00001	-0.41025999	1.53374004 1 0 0 -12 12    -0.00001	-0.41025999	1.53374004 0 0 -1 -10 10
+#END_MANIP
 
 #BEGIN_MANIP command_knob sim/fuel/fuel_selector_none	sim/fuel/fuel_selector_all
 #DEG_PER_ACTION 150

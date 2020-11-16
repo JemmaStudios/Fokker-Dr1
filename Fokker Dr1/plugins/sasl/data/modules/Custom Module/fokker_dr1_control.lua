@@ -60,7 +60,7 @@ yoke_hdg = globalPropertyf("sim/cockpit2/controls/yoke_heading_ratio")
 yoke_pitch = globalPropertyf("sim/cockpit2/controls/yoke_pitch_ratio")
 ground_speed = globalPropertyf("sim/flightmodel2/position/groundspeed")
 parking_brake = globalPropertyf("sim/cockpit2/controls/parking_brake_ratio")
-xp_vulkan = globalPropertyf ("sim/private/stats/gfx/vulkan/descriptors/max_sets")
+xp_vulkan = globalPropertyf ("sim/graphics/view/using_modern_driver")
 running = globalPropertyi("sim/operation/prefs/startup_running")         -- 0: cold and dark, 1: engines_running
 fuel_valve = globalPropertyi("sim/cockpit2/fuel/fuel_tank_selector")       -- 0: none, 1: left, 2: center, 3: right, 4: all
 fuel_supply = globalPropertyiae("sim/cockpit2/fuel/fuel_tank_pump_on", 1)    -- 0: off, 1: on
@@ -131,7 +131,7 @@ end
 
 function set_yoke_pitch_handler (f)
     dr1_elev_v = f
-    set(yoke_pitch, -dr1_elev_v)
+    set(yoke_pitch, dr1_elev_v)
 end
 
 
@@ -420,7 +420,7 @@ sasl.registerCommandHandler( dr1_fuel_selector_off_cmd, 0, dr1_fuel_selector_off
 set(chock_toggle, 1)
 set(parking_brake, 1)
 
-if get(xp_vulkan) > 1 then
+if get(xp_vulkan) >= 1 then
     set(dr1_starter, 0)
 else
     set(dr1_starter, 1)
