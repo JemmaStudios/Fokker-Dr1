@@ -31,8 +31,8 @@ dr1_settings["How_many_seconds_does_it_take_for_the_magneto_switch_to_turn"] = 0
 dr1_settings["How_many_seconds_between_oil_pulsator_pulses"] = 5
 --------------------------------------------------------------------------------
 
--- sasl.setLogLevel ( LOG_DEBUG )
-sasl.setLogLevel ( LOG_INFO )
+sasl.setLogLevel ( LOG_DEBUG )
+-- sasl.setLogLevel ( LOG_INFO )
 sasl.options.setAircraftPanelRendering ( false )
 sasl.options.set3DRendering ( false )
 sasl.options.setInteractivity ( false )
@@ -43,7 +43,11 @@ function debug_lib.on_debug(tString)
 	if getLogLevel() == LOG_DEBUG then print ("DEBUG MODE! "..tString) end
 end
 
-debug_lib.on_debug ("************** Fokker Dr1 DEBUG MODE IS ON *****************")
+debug_lib.on_debug ("*************** Fokker Dr1 DEBUG MODE IS ON *******************")
+debug_lib.on_debug ("*  If you are reading this I screwed up before distribution.  *")
+debug_lib.on_debug ("* Give me a heads up on my discord https://discord.gg/xpEnWXA *")
+debug_lib.on_debug ("***************************************************************")
+
 dr1_config = {}
 
 dr1_config_path = sasl.getAircraftPath ()

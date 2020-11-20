@@ -76,6 +76,7 @@ xp_radio[1] = globalPropertyi("sim/cockpit2/radios/actuators/com1_power")
 xp_radio[2] = globalPropertyi("sim/cockpit2/radios/actuators/com2_power")
 xp_radio[3] = globalPropertyi("sim/cockpit2/radios/actuators/nav1_power")
 xp_radio[4] = globalPropertyi("sim/cockpit2/radios/actuators/nav2_power")
+xp_livery = globalPropertys ("sim/aircraft/view/acf_livery_path")
 
 local dr1_mix_v  -- value of Dr1/cockpit/mixture_ratio
 local dr1_ail_left_v = 0 -- value of Dr1/cockpit/vr_ail_left
@@ -374,6 +375,53 @@ function check_rpm()
     if get(xp_engine_rpm) < 30 then was_running = false end
 end
 
+function do_first_time ()
+    first_time = false
+    set(chock_toggle, 1)
+    set(parking_brake, 1)
+
+    if get(xp_vulkan) >= 1 then
+        set(dr1_starter, 0)
+    else
+        set(dr1_starter, 1)
+    end
+
+    for i = 1, 4, 1
+    do
+        set(xp_radio[i], 0)         -- turn off com1, com2, nav1, nav2
+    end
+    set(open_canopy, isOpen)        -- let's open the canopy that isn't there.
+    set(open_can_rat, isOpen)       -- gotta do both to avoid a delayed opening.
+    if get(running) == isOff or get(xp_engine_running) == isOff then        -- if they started cold and dark,
+        debug_lib.on_debug("Cold and Dark")
+        set(xp_battery, isOff)
+        set(dr1_magneto_charge, 0)
+        set(fuel_valve, fuel_OFF)   -- we need to close the fuel valve
+        set(dr1_fuel_valve, isOff)
+        set(dr1_mag_switch, isOff)  -- turn the magneto off.
+        set(xp_mix, isOff)          -- we'll push the mixture lean for something else to do on startup
+    else
+        set(dr1_magneto_charge, get(magneto_full_charge))
+        set(dr1_mag_switch, isOn)
+        set(fuel_valve, fuel_ON)    -- otherwise we'll make sure it's on.
+        set(dr1_fuel_valve, isOn)
+    end
+end
+
+livery = "temp"
+function do_livery_check ()
+    if livery ~= get(xp_livery) then
+        debug_lib.on_debug("Livery: "..get(xp_livery))
+        livery = get(xp_livery)
+        local t = livery:sub(-3,-2)
+        debug_lib.on_debug("Last 1: "..t)
+        if t:lower() == "-r" then
+            set(replica_mode, 1)
+            debug_lib.on_debug("*** REPLICA MODE ENGAGED!! ***")
+        end
+    end
+end
+
 dr1_mix = createFunctionalPropertyf ("Dr1/cockpit/mixture_ratio", get_fokker_mix_handler, set_fokker_mix_handler) -- fokker_mix_handler
 dr1_ail_left = createFunctionalPropertyf("Dr1/cockpit/vr_ail_left", get_yoke_roll_left_handler, set_yoke_roll_left_handler) -- yoke_roll_left_handler
 dr1_ail_right = createFunctionalPropertyf("Dr1/cockpit/vr_ail_right", get_yoke_roll_right_handler, set_yoke_roll_right_handler) -- yoke_roll_right_handler
@@ -387,10 +435,10 @@ dr1_magneto_charge = createGlobalPropertyf ("Dr1/electrical/magneto_charge", 0.0
 dr1_fuel_valve = createGlobalPropertyf ("Dr1/control/fuel_valve_ratio", 0.0)
 oil_level = createGlobalPropertyf ("Dr1/engines/oil_level_liters", 10.0)
 oil_level_ratio = createGlobalPropertyf ("Dr1/engines/oil_pulse_ratio", 0)
+replica_mode = createGlobalPropertyi ("Dr1/status/replica_mode", 0)
 
 chock_cmd = sasl.createCommand("Dr1/cockpit/chock_toggle", "Toggles wheel chock boards.")  -- chock_handler
 sasl.registerCommandHandler ( chock_cmd , 0, chock_handler )
-
 xp_park_brake = sasl.findCommand ("sim/flight_controls/brakes_toggle_max") -- xp_park_handler
 sasl.registerCommandHandler ( xp_park_brake , 1, xp_park_handler)
 xp_park = sasl.findCommand ("sim/flight_controls/brakes_toggle_regular")
@@ -417,37 +465,13 @@ dr1_fuel_selector_off_cmd = sasl.createCommand("Dr1/command/fuel_valve_off", "Tu
 sasl.registerCommandHandler( dr1_fuel_selector_off_cmd, 0, dr1_fuel_selector_off_handler)
 
 -- on reload and/or startup
-set(chock_toggle, 1)
-set(parking_brake, 1)
 
-if get(xp_vulkan) >= 1 then
-    set(dr1_starter, 0)
-else
-    set(dr1_starter, 1)
-end
-
-for i = 1, 4, 1
-do
-    set(xp_radio[i], 0)         -- turn off com1, com2, nav1, nav2
-end
-set(open_canopy, isOpen)        -- let's open the canopy that isn't there.
-set(open_can_rat, isOpen)       -- gotta do both to avoid a delayed opening.
-if get(running) == isOff or get(xp_engine_running) == isOff then        -- if they started cold and dark,
-    debug_lib.on_debug("Cold and Dark")
-    set(xp_battery, isOff)
-    set(dr1_magneto_charge, 0)
-    set(fuel_valve, fuel_OFF)   -- we need to close the fuel valve
-    set(dr1_fuel_valve, isOff)
-    set(dr1_mag_switch, isOff)  -- turn the magneto off.
-    set(xp_mix, isOff)          -- we'll push the mixture lean for something else to do on startup
-else
-    set(dr1_magneto_charge, get(magneto_full_charge))
-    set(dr1_mag_switch, isOn)
-    set(fuel_valve, fuel_ON)    -- otherwise we'll make sure it's on.
-    set(dr1_fuel_valve, isOn)
-end
-
+first_time = true
 function update ()
+    do_livery_check()
+    if first_time == true then
+        do_first_time()
+    end
     check_rpm()
     update_oil()
     if not (oil_pulse_moving == not_moving) then

@@ -164,9 +164,7 @@ end
 function cock_lever_handler(i)
     if bolt_phase[i] == bolt_home then
         bolt_phase[i] = bolt_moving_fwd
-        if not sasl.al.isSamplePlaying ( cocking_sound[i]) then
-            sasl.al.playSample ( cocking_sound[i] )
-        end
+        sasl.al.playSample ( cocking_sound[i] )
     end
     if get(assist_status, i) == assist_off and get(guns_firing, i) == IS_JAMMED then
         if not sasl.al.isSamplePlaying ( cock_back[i]) then

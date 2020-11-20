@@ -2,8 +2,17 @@
 [JEMMA_FOKKER_DR1 INFO]: Path to module: C:\Program Files (x86)/Steam/steamapps/common/X-Plane 11/Aircraft/Jemma Studios/FokkerDr1/plugins/sasl/data/modules/main.lua
 [JEMMA_FOKKER_DR1 INFO]: Loading module...
 [JEMMA_FOKKER_DR1 INFO]: [LUA]: loading	module
+[JEMMA_FOKKER_DR1 INFO]: [LUA]: "module"	DEBUG MODE! *************** Fokker Dr1 DEBUG MODE IS ON *******************
+[JEMMA_FOKKER_DR1 INFO]: [LUA]: "module"	DEBUG MODE! *  If you are reading this I screwed up before distribution.  *
+[JEMMA_FOKKER_DR1 INFO]: [LUA]: "module"	DEBUG MODE! * Give me a heads up on my discord https://discord.gg/xpEnWXA *
+[JEMMA_FOKKER_DR1 INFO]: [LUA]: "module"	DEBUG MODE! ***************************************************************
 [JEMMA_FOKKER_DR1 INFO]: [LUA]: loading	timer_library
 [JEMMA_FOKKER_DR1 INFO]: [LUA]: loading	fokker_dr1_guns
 [JEMMA_FOKKER_DR1 INFO]: [LUA]: loading	fokker_dr1_albert
 [JEMMA_FOKKER_DR1 INFO]: [LUA]: loading	fokker_dr1_control
 [JEMMA_FOKKER_DR1 INFO]: Module loaded
+[JEMMA_FOKKER_DR1 INFO]: [LUA]: "module"	DEBUG MODE! Livery: Aircraft/Jemma Studios/FokkerDr1/liveries/Hawaiian-R/
+[JEMMA_FOKKER_DR1 INFO]: [LUA]: "module"	DEBUG MODE! Last 1: -R
+[JEMMA_FOKKER_DR1 INFO]: [LUA]: "module"	DEBUG MODE! *** REPLICA MODE ENGAGED!! ***
+[JEMMA_FOKKER_DR1 INFO]: Disabling...
+[JEMMA_FOKKER_DR1 INFO]: SASL plugin stopped...
