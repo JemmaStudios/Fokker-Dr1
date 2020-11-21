@@ -31,8 +31,8 @@ dr1_settings["How_many_seconds_does_it_take_for_the_magneto_switch_to_turn"] = 0
 dr1_settings["How_many_seconds_between_oil_pulsator_pulses"] = 5
 --------------------------------------------------------------------------------
 
-sasl.setLogLevel ( LOG_DEBUG )
--- sasl.setLogLevel ( LOG_INFO )
+-- sasl.setLogLevel ( LOG_DEBUG )
+sasl.setLogLevel ( LOG_INFO )
 sasl.options.setAircraftPanelRendering ( false )
 sasl.options.set3DRendering ( false )
 sasl.options.setInteractivity ( false )
